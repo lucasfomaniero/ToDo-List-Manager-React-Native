@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, KeyboardAvoidingView, SafeAreaView, Image, View, TouchableOpacity, Text, TextInput} from 'react-native';
+import {Alert, StyleSheet, KeyboardAvoidingView, SafeAreaView, Image, View, TouchableOpacity, Text, TextInput} from 'react-native';
 
 
 // TODO: get image resource
@@ -8,20 +8,9 @@ const img = require('../assets/logo.png');
 export default class Login extends Component {
 
     state = {
-        email: 'lucasfomaniero@gmail.com',
+        email: this.props.email,
         password: ''
     }
-
-    handleEmailChange = email => {
-        console.log(email);
-        this.setState({email});
-    };
-
-    handlePasswordInput = password => {
-
-    };
-
-   
 
     render(){
 
@@ -34,27 +23,34 @@ export default class Login extends Component {
                     <View style={styles.bottomView}>
                         <TextInput 
                             style={styles.input} 
+                            value={this.state.email}
                             placeholder='E-mail'
                             keyboardType={'email-address'}
-                            onChangeText={(text)=> this.handleEmailChange(text)}
+                            onChangeText={(text)=> this.setState({email: text})}
                             autoCapitalize='none'>
                         </TextInput>
                         <TextInput 
                             style={styles.input} 
-                            onChangeText={(text)=> this.handlePasswordInput(text)}
+                            onChangeText={(text)=> this.setState({password: text})}
                             placeholder='Password' 
                             secureTextEntry={true}
                             >
                         </TextInput>
-                        <TouchableOpacity style={styles.loginButton}>
+                        <TouchableOpacity 
+                            style={styles.loginButton}
+                            onPress={() => Alert.alert(`Email: ${this.state.email} \nPassword: ${this.state.password} `)}
+                            >
                             <Text style={styles.loginText}>Login</Text>
                         </TouchableOpacity>
                         <View>
                             <Text text={this.state.email} >
 
                             </Text>
+                            <Text style={styles.textRegister}>
+                                Not a member? Let's Register
+                            </Text>
                             <Text>
-                                
+
                             </Text>
                         </View>
                     </View>
@@ -94,7 +90,8 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     textRegister: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     loginButton: {
         alignItems: 'center',
