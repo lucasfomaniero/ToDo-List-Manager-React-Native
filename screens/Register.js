@@ -9,6 +9,10 @@ export default class Register extends Component {
         email: '',
         password: ''
     }
+
+    static navigationOptions = {
+        title: 'Register'
+    }
     
     render(){
         return(
@@ -17,7 +21,9 @@ export default class Register extends Component {
                 behavior='padding'>
                     <View style={styles.topView}>
                         <Image style={styles.img} source={img}/>
-                        <Text style={styles.title}>Registering new user</Text>
+                        <View>
+                            <Text style={styles.title}>Registering new user</Text>
+                        </View>
                     </View>
                     <View style={styles.bottomView}>
                         <TextInput style={styles.input}

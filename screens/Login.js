@@ -12,6 +12,10 @@ export default class Login extends Component {
         password: ''
     }
 
+    static navigationOptions = {
+        header: null
+    };
+
     render(){
 
         return(
@@ -46,7 +50,14 @@ export default class Login extends Component {
                             <Text text={this.state.email} >
 
                             </Text>
-                            <Text style={styles.textRegister}>
+                            <Text style={styles.textRegister}
+                                onPress={
+                                    ()=>{
+                                        const { navigate } = this.props.navigation;
+                                        navigate('pageRegister');
+                                    }
+                                }
+                            >
                                 Not a member? Let's Register
                             </Text>
                             <Text>
