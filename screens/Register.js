@@ -11,7 +11,8 @@ export default class Register extends Component {
     }
 
     static navigationOptions = {
-        title: 'Register'
+        title: 'Register',
+        headerBackTitle: 'Voltar'
     }
     
     render(){
