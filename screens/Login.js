@@ -14,7 +14,7 @@ export default class Login extends Component {
 
     static navigationOptions = {
         header: null
-    };
+    }
 
     render(){
 
@@ -51,12 +51,10 @@ export default class Login extends Component {
 
                             </Text>
                             <Text style={styles.textRegister}
-                                onPress={
-                                    ()=>{
-                                        const { navigate } = this.props.navigation;
-                                        navigate('pageRegister');
-                                    }
-                                }
+                                onPress={() => {
+                                    const {navigate} = this.props.navigation;
+                                    navigate('pageRegister');
+                                }}
                             >
                                 Not a member? Let's Register
                             </Text>
