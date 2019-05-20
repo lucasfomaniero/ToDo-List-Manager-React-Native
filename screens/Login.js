@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, KeyboardAvoidingView, SafeAreaView, Image, View, TouchableOpacity, Text, TextInput} from 'react-native';
+import {
+    Alert,
+    Image,
+    KeyboardAvoidingView,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
 
 
 // TODO: get image resource
@@ -10,11 +20,13 @@ export default class Login extends Component {
     state = {
         email: this.props.email,
         password: ''
-    }
+    };
 
     static navigationOptions = {
-        header: null
-    }
+        header: null,
+        headerBackTitle: "Voltar"
+
+    };
 
     render(){
 
@@ -22,7 +34,7 @@ export default class Login extends Component {
             <SafeAreaView style={{flex: 1}}>
                 <KeyboardAvoidingView style={styles.container} behavior='padding'>    
                     <View style={styles.topView}>
-                        <Image style={styles.img} source={img}></Image>
+                        <Image style={styles.img} source={img}/>
                     </View>
                     <View style={styles.bottomView}>
                         <TextInput 
@@ -117,4 +129,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#FFF'
     }
-})
+});
