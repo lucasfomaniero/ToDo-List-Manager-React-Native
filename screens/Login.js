@@ -1,62 +1,74 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, KeyboardAvoidingView, SafeAreaView, Image, View, TouchableOpacity, Text, TextInput} from 'react-native';
+import {
+    Alert,
+    Image,
+    KeyboardAvoidingView,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import {NavigationActions, StackActions} from "react-navigation";
+import {signInOnFirebaseAsync} from "../src/services/Firebase";
 
 
 // TODO: get image resource
-const img = require('../assets/logo.png'); 
+const img = require('../assets/logo.png');
 
 export default class Login extends Component {
 
     state = {
         email: this.props.email,
         password: ''
-    }
-
-    static navigationOptions = {
-        header: null
     };
 
-    render(){
+    static navigationOptions = {
+        header: null,
+        headerBackTitle: "Voltar"
 
-        return(
+    };
+
+    render() {
+
+        return (
             <SafeAreaView style={{flex: 1}}>
-                <KeyboardAvoidingView style={styles.container} behavior='padding'>    
+                <KeyboardAvoidingView style={styles.container} behavior='padding'>
                     <View style={styles.topView}>
-                        <Image style={styles.img} source={img}></Image>
+                        <Image style={styles.img} source={img}/>
                     </View>
                     <View style={styles.bottomView}>
-                        <TextInput 
-                            style={styles.input} 
+                        <TextInput
+                            style={styles.input}
                             value={this.state.email}
                             placeholder='E-mail'
                             keyboardType={'email-address'}
-                            onChangeText={(text)=> this.setState({email: text})}
+                            onChangeText={(text) => this.setState({email: text})}
                             autoCapitalize='none'>
                         </TextInput>
-                        <TextInput 
-                            style={styles.input} 
-                            onChangeText={(text)=> this.setState({password: text})}
-                            placeholder='Password' 
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={(text) => this.setState({password: text})}
+                            placeholder='Password'
                             secureTextEntry={true}
-                            >
+                        >
                         </TextInput>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={styles.loginButton}
-                            onPress={() => Alert.alert(`Email: ${this.state.email} \nPassword: ${this.state.password} `)}
-                            >
+                            onPress={() => this._signInAsync()}
+                        >
                             <Text style={styles.loginText}>Login</Text>
                         </TouchableOpacity>
                         <View>
-                            <Text text={this.state.email} >
+                            <Text text={this.state.email}>
 
                             </Text>
                             <Text style={styles.textRegister}
-                                onPress={
-                                    ()=>{
-                                        const { navigate } = this.props.navigation;
-                                        navigate('pageRegister');
-                                    }
-                                }
+                                  onPress={() => {
+                                      const {navigate} = this.props.navigation;
+                                      navigate('pageRegister');
+                                  }}
                             >
                                 Not a member? Let's Register
                             </Text>
@@ -68,6 +80,23 @@ export default class Login extends Component {
                 </KeyboardAvoidingView>
             </SafeAreaView>
         );
+    }
+
+    async _signInAsync() {
+        try {
+            const user = await signInOnFirebaseAsync(this.state.email, this.state.password);
+            const resetNavigation = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({
+                    routeName: 'pageTaskList'
+                })]
+            });
+            this.props.navigation.dispatch(resetNavigation)
+
+        } catch (error) {
+            Alert.alert("Login Failed", error.message);
+
+        }
     }
 }
 
@@ -119,4 +148,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#FFF'
     }
-})
+});

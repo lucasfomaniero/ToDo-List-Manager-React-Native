@@ -1,13 +1,23 @@
-import React from 'react';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
-import {Login, Register} from '../../screens/Screens';
+import {createAppContainer, createBottomTabNavigator, createStackNavigator} from "react-navigation";
+import React from "react";
+import {DoneTasks, Login, Register, ToDoTasks} from "../../screens/Screens";
 
-export default Routes = createAppContainer(createStackNavigator(
-    {
-        pageLogin: {screen: Login},
-        pageRegister: {screen: Register}
-    },
-    {
-        headerMode: 'screen'
+const tabNavigator = createBottomTabNavigator({
+    pageTodoTasks: {screen: ToDoTasks, title: "To Do"},
+    pageDoneTasks: {screen: DoneTasks, title: "Done"}
+});
+
+const tabNavigatorConfig = {
+    screen: tabNavigator,
+    navigationOptions: {
+        title: "Task List"
     }
+};
+
+export default (Routes = createAppContainer(
+    createStackNavigator({
+        pageLogin: {screen: Login},
+        pageRegister: {screen: Register},
+        pageTaskList: tabNavigatorConfig
+    })
 ));
