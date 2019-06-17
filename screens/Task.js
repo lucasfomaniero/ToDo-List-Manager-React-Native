@@ -92,7 +92,7 @@ const Container = styled.View`
 `;
 
 const Input = styled.TextInput.attrs({
-    placeholderTextColor: "black",
+    placeholderTextColor: "gray",
     fontSize: 16
 })`
   background-color: #fefefe;
