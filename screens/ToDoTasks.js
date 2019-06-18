@@ -40,7 +40,7 @@ export default class ToDoTasks extends React.Component {
       return (
           <Container style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
             <DoneImage source={require("../assets/completed-task.png")}/>
-            <Text>Você não tem nenhuma tarefa.{"\n"} Toque no + abaixo para criar uma.</Text>
+              <Text>You have no tasks.{"\n"} Tap the + button below to create one.</Text>
             <Button onPress={() => this._goToTask()}>
               <Icon name="ios-add-circle" size={48} color={"#157EFB"}/>
             </Button>
