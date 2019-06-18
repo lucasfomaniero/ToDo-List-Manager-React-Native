@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import TaskListView from "../src/Components/TaskListView";
 import {readTasksFromFirebaseAsync} from "../src/services/Firebase";
 
+
 export default class ToDoTasks extends React.Component {
     static navigationOptions = {
         tabBarLabel: 'Done',
@@ -18,6 +19,7 @@ export default class ToDoTasks extends React.Component {
     render() {
         return (
             <Container>
+
                 <TaskListView tasks={this.state.tasks} navigation={this.props.navigation}/>
             </Container>
         );

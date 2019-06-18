@@ -27,12 +27,7 @@ export default class ToDoTasks extends React.Component {
 
   render() {
     return (
-        <Container>
-          <TaskListView tasks={this.state.tasks} navigation={this.props.navigation}/>
-          <Button onPress={() => this._goToTask()}>
-            <Icon name="ios-add-circle" size={48} color={"#157EFB"}/>
-          </Button>
-        </Container>
+        this._renderListView()
     );
   }
 
@@ -40,6 +35,28 @@ export default class ToDoTasks extends React.Component {
     this.props.navigation.navigate("pageTask");
   }
 
+  _renderListView() {
+    if (this.state.tasks.length === 0) {
+      return (
+          <Container style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <DoneImage source={require("../assets/completed-task.png")}/>
+            <Text>Você não tem nenhuma tarefa.{"\n"} Toque no + abaixo para criar uma.</Text>
+            <Button onPress={() => this._goToTask()}>
+              <Icon name="ios-add-circle" size={48} color={"#157EFB"}/>
+            </Button>
+          </Container>
+      );
+    } else {
+      return (
+          <Container>
+            <TaskListView tasks={this.state.tasks} navigation={this.props.navigation}/>
+            <Button onPress={() => this._goToTask()}>
+              <Icon name="ios-add-circle" size={48} color={"#157EFB"}/>
+            </Button>
+          </Container>
+      );
+    }
+  }
 
 }
 
@@ -50,11 +67,20 @@ const Container = styled.View`
 
 const Text = styled.Text`
   font-size: 18px;
+  text-align: center;
+  color: #aaaaaa;
 `;
 const Button = styled.TouchableOpacity`
+  
   position: absolute;
   right: 16px;
   bottom: 16px;
   box-shadow: 2px 2px 3.5px rgba(0, 0, 0, 0.2);
   shadow-radius: 3.5;
+`;
+
+const DoneImage = styled.Image`
+  width: 100px;
+  height: 100px;
+  margin: 16px;
 `;

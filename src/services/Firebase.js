@@ -15,7 +15,6 @@ export const createUserOnFirebaseAsync = async (email, password) => {
     const {user} = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
-
     return user;
 };
 
@@ -43,7 +42,7 @@ export const signInOnFirebaseAsync = async (email, password) => {
 export const readTasksFromFirebaseAsync = async (listener) => {
     const user = await currentFirebaseUser();
 
-    var taskReference = firebase
+    let taskReference = firebase
         .database()
         .ref(user.uid)
         .child('tasks');
@@ -58,6 +57,13 @@ export const readTasksFromFirebaseAsync = async (listener) => {
             });
             listener(tasks);
         })
+};
+
+export const deleteTaskOnFireBaseAsync = async (task) => {
+    const user = await currentFirebaseUser();
+    let tasksReference = firebase.database().ref(user.uid);
+    const key = task.key;
+    return await tasksReference.child(`tasks/${key}`).remove();
 };
 
 export const writeTaskOnFirebaseAsync = async task => {
